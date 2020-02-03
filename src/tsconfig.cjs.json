@@ -3,8 +3,7 @@
     "composite": true,
     "module": "commonjs",
     "outDir": "../dist/cjs",
-    "rootDir": ".",
-    "target": "es5"
+    "rootDir": "."
   },
   "extends": "../tsconfig-base.json"
 }

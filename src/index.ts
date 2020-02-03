@@ -17,6 +17,13 @@ export class RenderClient {
     window.onpopstate = async (): Promise<void> => {
       const name = this.route()
 
+      const searchParams = new URLSearchParams(
+        location.search
+      )
+      const params = this.paramsToObject(
+        searchParams.entries()
+      )
+
       await this.evalLoad({
         [name]: window["paths"][name],
       })
@@ -25,7 +32,7 @@ export class RenderClient {
       const req: RenderRequest = {
         path: window.location.pathname,
         method: "GET",
-        params: new URLSearchParams(location.search),
+        params,
         user: window["user"],
       }
 
@@ -40,6 +47,17 @@ export class RenderClient {
         document.body.append(el)
       }
     }
+  }
+
+  paramsToObject(
+    entries: IterableIterator<[string, string]>
+  ): Record<string, string> {
+    const result = {}
+    for (const entry of entries) {
+      const [key, value] = entry
+      result[key] = value
+    }
+    return result
   }
 
   route(path?: string): any {
