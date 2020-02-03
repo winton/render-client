@@ -1,5 +1,5 @@
 {
-  "name": "@winton/render-client",
+  "name": "@fn2/render-client",
   "version": "0.0.1",
   "description": "Render client",
   "main": "dist/cjs/index.js",
