@@ -5,17 +5,9 @@ cd "$(dirname "$0")/../"
 BUMP=${1:-minor}
 VERSION="$(npx -c 'echo "$npm_package_version"')"
 VERSION_BUMP="$(npx semver -i $BUMP $VERSION)"
+ESM="./dist/esm/index.js"
+MJS="./dist/mjs/renderClient-$VERSION_BUMP.mjs"
 
 rm -rf dist
 tsc -b
-
-ESMS="$(ls -d \
-  dist/esm/index.js
-)"
-
-for ESM in $ESMS; do
-  BASE=${ESM##*/}
-  BASE=${BASE%.*}
-  MJS="./dist/mjs/renderClient-$VERSION_BUMP.mjs"
-  npx rollup $ESM --context this --file $MJS -f esm --sourcemap
-done
+npx rollup $ESM --context this --file $MJS -f esm --sourcemap
