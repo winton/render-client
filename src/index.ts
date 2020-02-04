@@ -32,6 +32,7 @@ export class RenderClient {
       const req: RenderRequest = {
         path: window.location.pathname,
         method: "GET",
+        files: {},
         params,
         user: window["user"],
       }
